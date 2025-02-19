@@ -1,0 +1,8 @@
+more_stuff = []
+and_more = ""
+
+[first]
+second_stuff = 0
+
+[first.second]
+val = 0

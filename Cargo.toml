@@ -1,0 +1,2 @@
+[workspace]
+members = ["toml_config_derive", "toml_config_trait"]
