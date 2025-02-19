@@ -13,13 +13,13 @@ repository = "https://github.com/simp4t7/toml_config"
 proc-macro = true
 
 [dependencies]
-quote = "1.0.36"
+quote = "1.0.38"
 
 [dependencies.syn]
-version = "2.0.72"
+version = "2.0.98"
 
 [dependencies.proc-macro2]
-version = "1.0.86"
+version = "1.0.93"
 
 [dependencies.serde]
 version = "1.0"

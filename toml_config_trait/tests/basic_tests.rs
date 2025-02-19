@@ -1,7 +1,6 @@
 use anyhow::Result;
 use serde::{Deserialize, Serialize};
 use toml_config_trait::{TomlConfig, TomlConfigTrait};
-//use toml_config_trait::TomlConfigTrait;
 
 #[derive(TomlConfig, Default, Serialize, Deserialize, Debug, PartialEq)]
 pub struct TestConfig {
