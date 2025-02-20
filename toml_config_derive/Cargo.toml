@@ -8,8 +8,8 @@ documentation = "https://docs.rs/toml_config_derive"
 repository = "https://github.com/simp4t7/toml_config"
 readme = "../README.md"
 
-#[readme]
-#workspace = true
+[readme]
+workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
