@@ -7,8 +7,35 @@ Basic rust derive macro and trait to turn a struct into a readable and writable 
 
 ## Installation & Usage
 
+```cargo add toml_config_derive```
 
-## Limitations
+```Rust
+use toml_config_derive::TomlConfig;
+use toml_config_derive::TomlConfigTrait;
+```
+Both the trait and the macro must be in scope to use the provided methods.
+
+Macros used for `TomlConfig` MUST implement `Default`, `Serialize`, and `Deserialize`.
+
+## Example Usage
+
+```Rust
+use toml_config_derive::{TomlConfig, TomlConfigTrait};
+use serde::{Serialize, Deserialze};
+
+#[derive(TomlConfig, Serialize, Deserialize, Default)]
+TestStruct {
+	first: String,
+	second: usize,
+}
+
+fn main() {
+	let test_struct = TestStruct::default();
+	test_struct.write_to_path("test_config.toml".into()).unwrap();
+	let test_struct_read = TestStruct::read_from_path("test_config.toml".into()).unwrap();
+	assert_eq!(test_struct, test_struct_read);
+}
+```
 
 
 ## Use Cases
