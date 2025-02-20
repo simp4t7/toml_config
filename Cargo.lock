@@ -1150,7 +1150,7 @@ dependencies = [
 
 [[package]]
 name = "toml_config_derive"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "proc-macro2",
  "quote",
