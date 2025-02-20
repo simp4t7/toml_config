@@ -1,11 +1,12 @@
 [package]
 name = "toml_config_trait"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "Rust trait to turn a Rust struct into a TOML config."
 license = "MIT OR Apache-2.0"
 documentation = "https://docs.rs/toml_config_trait"
 repository = "https://github.com/simp4t7/toml_config"
+readme = "../README.md"
 
 [features]
 config_map = ["dep:k8s-openapi", "dep:kube"]
@@ -15,7 +16,7 @@ toml = "0.8.20"
 anyhow = "1.0.95"
 
 [dependencies.toml_config_derive]
-version = "0.1.1"
+version = "0.1.2"
 
 [dependencies.serde]
 version = "1.0"
