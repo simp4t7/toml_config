@@ -1139,6 +1139,8 @@ dependencies = [
 [[package]]
 name = "toml_config_derive"
 version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "697021fcb49336cef08c33927009e63564f0262403e32b7cd7b11079680718b7"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1148,9 +1150,7 @@ dependencies = [
 
 [[package]]
 name = "toml_config_derive"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "697021fcb49336cef08c33927009e63564f0262403e32b7cd7b11079680718b7"
+version = "0.1.2"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1167,7 +1167,7 @@ dependencies = [
  "kube",
  "serde",
  "toml",
- "toml_config_derive 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "toml_config_derive 0.1.1",
 ]
 
 [[package]]
