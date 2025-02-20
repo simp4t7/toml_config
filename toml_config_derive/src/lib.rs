@@ -2,7 +2,7 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, DeriveInput};
 
-#[doc = include_str!("../README.md")]
+#[doc = include_str!("../../../README.md")]
 #[proc_macro_derive(TomlConfig)]
 pub fn toml_config(input: TokenStream) -> TokenStream {
     let input_struct = parse_macro_input!(input as DeriveInput);

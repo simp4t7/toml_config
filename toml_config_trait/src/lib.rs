@@ -9,7 +9,7 @@ mod utils;
 
 pub use toml_config_derive::TomlConfig;
 
-#[doc = include_str!("../README.md")]
+#[doc = include_str!("../../../README.md")]
 pub trait TomlConfigTrait {
     fn new_default_config() -> Self
     where
