@@ -7,7 +7,6 @@ use serde::Serialize;
 #[cfg(feature = "config_map")]
 mod utils;
 
-//#[cfg(feature = "derive")]
 pub use toml_config_derive::TomlConfig;
 
 pub trait TomlConfigTrait {
@@ -41,11 +40,10 @@ pub trait TomlConfigTrait {
     }
     #[cfg(feature = "config_map")]
     #[allow(async_fn_in_trait)]
-    async fn update_config_map(
-        config_path: &str,
-        config_map_name: &str,
-        namespace: &str,
-    ) -> Result<()> {
+    async fn update_config_map(&self, config_map_name: &str, namespace: &str) -> Result<()>
+    where
+        Self: Serialize,
+    {
         use crate::utils::create_config_map;
         use crate::utils::toml_to_map;
         use k8s_openapi::api::core::v1::ConfigMap;
@@ -53,14 +51,14 @@ pub trait TomlConfigTrait {
 
         let config = Config::infer().await?;
         let client = Client::try_from(config)?;
-        let maps: Api<ConfigMap> = Api::namespaced(client, &namespace);
+        let maps: Api<ConfigMap> = Api::namespaced(client, namespace);
 
         let config_map = maps.entry("config-map").await?;
+        let toml_str = toml::to_string(&self).expect("toml::to_string error");
         config_map
             .and_modify(|cm| {
                 if let Some(data) = &cm.data {
-                    let config_map =
-                        toml_to_map(config_path).expect("error parsing evo_config.toml");
+                    let config_map = toml_to_map(&toml_str).expect("error parsing evo_config.toml");
                     if &config_map != data {
                         println!("config-map doesn't match, updating now.");
                         cm.data = Some(config_map);
@@ -70,7 +68,7 @@ pub trait TomlConfigTrait {
                 }
             })
             .or_insert(|| {
-                create_config_map(config_path, config_map_name).expect("error creating config-map")
+                create_config_map(&toml_str, config_map_name).expect("error creating config-map")
             })
             .commit(&PostParams::default())
             .await?;

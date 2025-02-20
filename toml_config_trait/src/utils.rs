@@ -1,11 +1,11 @@
 use anyhow::Result;
 use k8s_openapi::api::core::v1::ConfigMap;
 use kube::core::ObjectMeta;
-use std::{collections::BTreeMap, fs};
+use std::collections::BTreeMap;
 use toml::Table;
 
-pub fn create_config_map(config_path: &str, config_map_name: &str) -> Result<ConfigMap> {
-    let config_map = toml_to_map(config_path)?;
+pub fn create_config_map(toml_str: &str, config_map_name: &str) -> Result<ConfigMap> {
+    let config_map = toml_to_map(toml_str)?;
     let metadata = ObjectMeta {
         name: Some(String::from(config_map_name)),
         ..Default::default()
@@ -18,8 +18,8 @@ pub fn create_config_map(config_path: &str, config_map_name: &str) -> Result<Con
     Ok(config_map)
 }
 
-pub fn toml_to_map(config_path: &str) -> Result<BTreeMap<String, String>> {
-    let config: BTreeMap<String, Table> = toml::from_str(&fs::read_to_string(&config_path)?)?;
+pub fn toml_to_map(toml_str: &str) -> Result<BTreeMap<String, String>> {
+    let config: BTreeMap<String, Table> = toml::from_str(toml_str)?;
     let mut flat_map: BTreeMap<String, String> = BTreeMap::new();
     for table in config.values() {
         for (key, val) in table {
