@@ -15,7 +15,7 @@ use toml_config_derive::TomlConfigTrait;
 ```
 Both the trait and the macro must be in scope to use the provided methods.
 
-Macros used for `TomlConfig` MUST implement `Default`, `Serialize`, and `Deserialize`.
+Structs using `TomlConfig` **MUST** also implement `Default`, `Serialize`, and `Deserialize`.
 
 ## Example Usage
 
@@ -37,6 +37,38 @@ fn main() {
 }
 ```
 
+## Features
+`config_map` is used to convert a TOML config to a flat map that can be used for a Kubernetes config-map.
 
-## Use Cases
+#### Example
+
+```cargo add toml_config_derive -F config_map```
+
+
+```Rust
+use toml_config_derive::{TomlConfig, TomlConfigTrait};
+use serde::{Serialize, Deserialze};
+
+#[derive(TomlConfig, Serialize, Deserialize, Default)]
+TestStruct {
+	first: String,
+	second: usize,
+}
+
+#[tokio::main]
+async fn main() {
+	let test_struct = TestStruct::read_from_path("test_config.toml".into()).unwrap();
+	test_struct.update_config_map("test_config_map", "test_namespace").await.unwrap();
+}
+```
+
+Under the hood this uses 
+```
+	let config = kube::Config::infer().await?;
+	let client = kube::Client::try_from(config)?;
+	let maps: kube::Api<k8s_openapi::api::core::v1::ConfigMap> = kube::Api::namespaced(client, namespace);
+```
+`k8s_openapi` is pinned to `v1_32`.
+
+Note: this is pretty niche, but necessary for my use case. I'm open to ideas to make this more adaptable if there's a need for it.
 

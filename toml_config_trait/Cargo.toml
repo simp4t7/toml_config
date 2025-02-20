@@ -1,6 +1,6 @@
 [package]
 name = "toml_config_trait"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Rust trait to turn a Rust struct into a TOML config."
 license = "MIT OR Apache-2.0"
