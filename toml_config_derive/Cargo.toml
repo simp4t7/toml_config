@@ -6,7 +6,7 @@ description = "Rust macro to turn a Rust struct into a TOML config."
 license = "MIT OR Apache-2.0"
 documentation = "https://docs.rs/toml_config_derive"
 repository = "https://github.com/simp4t7/toml_config"
-readme = "../README.md"
+readme = "../../README.md"
 
 [readme]
 workspace = true
