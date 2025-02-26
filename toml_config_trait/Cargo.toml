@@ -11,9 +11,13 @@ readme = "../README.md"
 [features]
 config_map = ["dep:k8s-openapi", "dep:kube"]
 
+[lib]
+doctest = false
+
 [dependencies]
 toml = "0.8.20"
 anyhow = "1.0.95"
+log = "0.4.26"
 
 [dependencies.toml_config_derive]
 version = "0.1.2"

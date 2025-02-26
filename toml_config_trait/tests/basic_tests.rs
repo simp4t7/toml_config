@@ -40,6 +40,8 @@ fn write_nested_config() -> Result<()> {
 
 #[test]
 fn write_and_read() -> Result<()> {
+    use log::info;
+    info!("checking logs");
     let test_config = TestConfig::default();
     test_config.write_to_path("test_data/test_config_3.toml".into())?;
     let read_config = TestConfig::read_from_path("test_data/test_config_3.toml".into())?;

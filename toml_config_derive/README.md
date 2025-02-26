@@ -45,7 +45,7 @@ fn main() {
 ```cargo add toml_config_derive -F config_map```
 
 
-```Rust
+```no_run
 use toml_config_derive::{TomlConfig, TomlConfigTrait};
 use serde::{Serialize, Deserialze};
 
@@ -63,7 +63,7 @@ async fn main() {
 ```
 
 Under the hood this uses 
-```
+```no_run
 	let config = kube::Config::infer().await?;
 	let client = kube::Client::try_from(config)?;
 	let maps: kube::Api<k8s_openapi::api::core::v1::ConfigMap> = kube::Api::namespaced(client, namespace);

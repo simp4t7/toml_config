@@ -1,4 +1,5 @@
 use anyhow::Result;
+use log::info;
 use serde::de::DeserializeOwned;
 use std::{fs, path::PathBuf};
 
@@ -55,16 +56,16 @@ pub trait TomlConfigTrait {
         let maps: Api<ConfigMap> = Api::namespaced(client, namespace);
 
         let config_map = maps.entry("config-map").await?;
-        let toml_str = toml::to_string(&self).expect("toml::to_string error");
+        let toml_str = toml::to_string(&self)?;
         config_map
             .and_modify(|cm| {
                 if let Some(data) = &cm.data {
                     let config_map = toml_to_map(&toml_str).expect("error parsing evo_config.toml");
                     if &config_map != data {
-                        println!("config-map doesn't match, updating now.");
+                        info!("config-map doesn't match, updating now.");
                         cm.data = Some(config_map);
                     } else {
-                        println!("config-map is unchanged, skipping update");
+                        info!("config-map is unchanged, skipping update");
                     }
                 }
             })
