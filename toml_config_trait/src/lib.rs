@@ -1,9 +1,8 @@
 use anyhow::Result;
-use log::info;
 use serde::de::DeserializeOwned;
 use std::{fs, path::PathBuf};
 
-use serde::Serialize;
+pub use serde::{Deserialize, Serialize};
 
 #[cfg(feature = "config_map")]
 mod utils;
@@ -50,6 +49,7 @@ pub trait TomlConfigTrait {
         use crate::utils::toml_to_map;
         use k8s_openapi::api::core::v1::ConfigMap;
         use kube::{api::PostParams, Api, Client, Config};
+        use log::info;
 
         let config = Config::infer().await?;
         let client = Client::try_from(config)?;

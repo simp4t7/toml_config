@@ -24,7 +24,7 @@ use toml_config_derive::{TomlConfig, TomlConfigTrait};
 use serde::{Serialize, Deserialze};
 
 #[derive(TomlConfig, Serialize, Deserialize, Default)]
-TestStruct {
+struct TestStruct {
 	first: String,
 	second: usize,
 }
